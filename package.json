@@ -1,0 +1,27 @@
+{
+  "name": "averlo-website-showcase",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sample:prepare": "python3 scripts/prepare-input.py sample",
+    "sample:check": "node scripts/render-input.mjs sample --validate",
+    "sample:render": "node scripts/render-input.mjs sample",
+    "render": "node scripts/render-input.mjs"
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.529",
+    "@remotion/renderer": "4.0.529",
+    "@remotion/player": "4.0.529",
+    "remotion": "4.0.529",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "@types/node": "22.15.30",
+    "esbuild": "0.25.12",
+    "typescript": "5.9.3"
+  }
+}

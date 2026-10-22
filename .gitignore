@@ -1,0 +1,12 @@
+node_modules/
+.venv/
+__pycache__/
+.DS_Store
+sample/bundle/
+sample/frames/
+sample/public/
+sample/evidence/
+sample/*.mp4
+sample/poster.png
+sample/evidence.zip
+sample/geometry.mjs

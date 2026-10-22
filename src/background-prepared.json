@@ -1,0 +1,12 @@
+{
+  "defaultInput": {
+    "mode": "auto-contrast",
+    "override": "#111111"
+  },
+  "decisions": {
+    "auto-contrast": {
+      "color": "#111111"
+    },
+    "auto-palette": null
+  }
+}

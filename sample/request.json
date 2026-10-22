@@ -1,0 +1,123 @@
+{
+  "mode": "page",
+  "page": {
+    "width": 1440,
+    "height": 5600
+  },
+  "sections": [
+    {
+      "id": "S1",
+      "order": 0,
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 800,
+      "background": "source"
+    },
+    {
+      "id": "S2",
+      "order": 1,
+      "x": 0,
+      "y": 800,
+      "width": 1440,
+      "height": 800,
+      "background": "source"
+    },
+    {
+      "id": "S3",
+      "order": 2,
+      "x": 0,
+      "y": 1600,
+      "width": 1440,
+      "height": 800,
+      "background": "source"
+    },
+    {
+      "id": "S4",
+      "order": 3,
+      "x": 0,
+      "y": 2400,
+      "width": 1440,
+      "height": 800,
+      "background": "source"
+    },
+    {
+      "id": "S5",
+      "order": 4,
+      "x": 0,
+      "y": 3200,
+      "width": 1440,
+      "height": 800,
+      "background": "source"
+    },
+    {
+      "id": "S6",
+      "order": 5,
+      "x": 0,
+      "y": 4000,
+      "width": 1440,
+      "height": 800,
+      "background": "source"
+    },
+    {
+      "id": "S7",
+      "order": 6,
+      "x": 0,
+      "y": 4800,
+      "width": 1440,
+      "height": 800,
+      "background": "source"
+    }
+  ],
+  "shots": {
+    "opening": {
+      "leftY": 2400,
+      "rightY": 0
+    },
+    "solo": [
+      "S2",
+      "S3"
+    ],
+    "columns": {
+      "left": [
+        "S4",
+        "S5",
+        "S6",
+        "S7"
+      ],
+      "right": [
+        "S1",
+        "S2",
+        "S3"
+      ]
+    },
+    "pairs": [
+      [
+        "S4",
+        "S5"
+      ],
+      [
+        "S6",
+        "S1"
+      ]
+    ]
+  },
+  "background": {
+    "mode": "auto-contrast",
+    "override": "#111111",
+    "contrast": {
+      "color": "#111111"
+    }
+  },
+  "review": {
+    "status": "sample",
+    "note": "Original synthetic geometric sample; replace with owned website screenshots."
+  },
+  "images": [
+    {
+      "sha256": "5355a0d79f16829a682e2f4a7171fad53943e9654944168656a65b2bc398d4be",
+      "width": 1440,
+      "height": 5600
+    }
+  ]
+}
