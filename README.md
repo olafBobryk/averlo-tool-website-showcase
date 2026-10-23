@@ -14,6 +14,7 @@ python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 .venv/bin/python scripts/prepare-input.py sample
 npm run sample:check
+npm run check:canvas
 SHOWCASE_PYTHON="$PWD/.venv/bin/python" npm run sample:render
 ```
 
@@ -34,6 +35,18 @@ SHOWCASE_PYTHON="$PWD/.venv/bin/python" node scripts/render-input.mjs /absolute/
 ```
 
 If fit validation fails, choose shorter sections or different slots and rerun it. Do not disable validation to force a render. Background may use an explicit six-digit hex override, automatic palette selection, or the included balanced strategy.
+
+## Canvas width and height
+
+Add an optional `canvas` field to your input request before preparing it:
+
+```json
+"canvas": {"width": 1080, "height": 1350}
+```
+
+Both dimensions must be even integers from 64 to 4096. Omit the field to retain the original 2228×1672 output. The complete animation uses the requested viewport: opening and returning strips, solo sections, moving columns, paired reveals, rails, entrances and exits. Image proportions, horizontal composition and timing remain unchanged; vertical travel adapts to the new boundaries. There is no centered landscape stage inside a portrait output.
+
+A taller canvas exposes more of the opening page crops. Preparation rejects insufficient source coverage; choose an earlier lower crop or provide a taller page. Section fit and frame/video integrity validation still apply. The render evidence records the delivered dimensions.
 
 ## Updates and credentials
 

@@ -10,7 +10,7 @@ export function FigmaContent({plane,frame,highQuality=false,image}:{plane:PlaneG
   const left=plane.section==='page-left';const fullWidth=left?394:516;
   const scale=fullWidth/manifest.width;
   const cropY=left?sequence.opening.leftY:sequence.opening.rightY;
-  return <div data-page-crop={cropY} data-image-zoom={zoom} style={{position:'absolute',width:fullWidth,height:1600,left:left?0:plane.width-fullWidth,transform:`scale(${zoom})`,transformOrigin:'50% 0'}}><Img src={pageImage} style={{position:'absolute',width:manifest.width*scale,height:manifest.height*scale,top:-cropY*scale,left:0,maxWidth:'none'}}/></div>;
+  return <div data-page-crop={cropY} data-image-zoom={zoom} style={{position:'absolute',width:fullWidth,height:plane.height,left:left?0:plane.width-fullWidth,transform:`scale(${zoom})`,transformOrigin:'50% 0'}}><Img src={pageImage} style={{position:'absolute',width:manifest.width*scale,height:manifest.height*scale,top:-cropY*scale,left:0,maxWidth:'none'}}/></div>;
  }
  const section=sectionForPlane(plane.id,plane.section);if(!section)return null;
  const {scale,left,top}=imageLayoutAt(plane,frame,section.width,section.height);

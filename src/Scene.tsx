@@ -1,21 +1,22 @@
 import React from 'react';
 import {AbsoluteFill,useCurrentFrame} from 'remotion';
 import {geometryAt,railsAt,FORMAT,PlaneGeometry,toSourceFrame} from './motion';
+import {fitPlaneToHeight} from './canvas';
 import {FigmaContent} from './FigmaContent';
 import {resolveBackground,railColorFor,type BackgroundInput} from './background';
 import {sectionForPlane,configureShowcase,type ShowcaseInput} from './sequence';
 import {contentGeometryAt} from './content-layout';
 export type SectionSlot = {id:string;render?:(geometry:PlaneGeometry)=>React.ReactNode};
-export type SceneProps = {input?:ShowcaseInput;background?:BackgroundInput;highQuality?:boolean;contentMode?:'figma'|'blank';guides?:boolean;outline?:boolean;frameOverride?:number;sections?:SectionSlot[]};
+export type SceneProps = {input?:ShowcaseInput;background?:BackgroundInput;highQuality?:boolean;contentMode?:'figma'|'blank';guides?:boolean;outline?:boolean;frameOverride?:number;viewportHeight?:number;sections?:SectionSlot[]};
 /** The only composition renderer. Source images never enter these content slots. */
-export const Scene:React.FC<SceneProps>=({input,background,highQuality=false,guides=false,outline=false,frameOverride,sections=[],contentMode='figma'})=>{
+export const Scene:React.FC<SceneProps>=({input,background,highQuality=false,guides=false,outline=false,frameOverride,sections=[],contentMode='figma',viewportHeight=FORMAT.height})=>{
  if(input)configureShowcase(input);
  const resolvedBackground=input?{color:input.background.color,railColor:railColorFor(input.background.color)}:resolveBackground(background);
  const current=useCurrentFrame(); const frame=toSourceFrame(frameOverride??current);
- const planes=(contentMode==='figma'?contentGeometryAt(frame):geometryAt(frame)).filter(p=>contentMode==='blank'||p.group==='clipped-page'||sectionForPlane(p.id,p.section)), rails=railsAt(frame);
+ const planes=(contentMode==='figma'?contentGeometryAt(frame,viewportHeight):geometryAt(frame).map(p=>fitPlaneToHeight(p,viewportHeight))).filter(p=>contentMode==='blank'||p.group==='clipped-page'||sectionForPlane(p.id,p.section)), rails=railsAt(frame);
  return <AbsoluteFill data-scene-frame={frame} style={{background:outline?'transparent':resolvedBackground.color,overflow:'hidden'}}>
-  {!outline&&<svg width={FORMAT.width} height={FORMAT.height} style={{position:'absolute',inset:0}} aria-hidden>
-    {rails.map(l=><line key={l.id} x1={l.x+.5} x2={l.x+.5} y1={-l.offset} y2={840} stroke={resolvedBackground.railColor} strokeWidth={1} opacity={l.opacity} strokeDasharray={`${l.dash} ${l.gap}`}/>)}
+  {!outline&&<svg width={FORMAT.width} height={viewportHeight} style={{position:'absolute',inset:0}} aria-hidden>
+    {rails.map(l=><line key={l.id} x1={l.x+.5} x2={l.x+.5} y1={-l.offset} y2={viewportHeight+4} stroke={resolvedBackground.railColor} strokeWidth={1} opacity={l.opacity} strokeDasharray={`${l.dash} ${l.gap}`}/>)}
   </svg>}
   {planes.map(p=>{
    const content=sections.find(s=>s.id===p.section)?.render?.(p);

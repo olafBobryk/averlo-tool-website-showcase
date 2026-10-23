@@ -1,4 +1,5 @@
 import motionData from './motion-data.json';
+import {fitPlaneToHeight} from './canvas';
 import {geometryAt,railsAt,COLUMN_INSET,smoothTravel,type PlaneGeometry} from './motion';
 import {sectionForPlane,sequence} from './sequence';
 /** Keep the choreography's widths, but let the actual section determine height. */
@@ -24,7 +25,7 @@ function nativeGeometryAt(frame:number):PlaneGeometry[]{
 const ends=new Map(motionData.instances.map(p=>[p.id,p.last+.5]));
 const pairedIds=['ingredients-isolated','hero-isolated'];
 /** Native-sized cards clear the viewport through continuous, complete exits. */
-export function contentGeometryAt(frame:number):PlaneGeometry[]{
+export function contentGeometryAt(frame:number,viewportHeight=836):PlaneGeometry[]{
  return nativeGeometryAt(frame).map(plane=>{
   if(plane.group==='clipped-page')return plane;
   const paired=pairedIds.includes(plane.id);
@@ -48,5 +49,5 @@ export function contentGeometryAt(frame:number):PlaneGeometry[]{
   const target=final.y<initial.y?-final.height-2:838;
   const velocity=(next.y-initial.y)/.001;
   return {...plane,y:smoothTravel((frame-start)/18,initial.y,target,velocity,(target-initial.y)/18,18)};
- });
+ }).map(plane=>fitPlaneToHeight(plane,viewportHeight));
 }

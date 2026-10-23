@@ -4,6 +4,11 @@ from pathlib import Path
 import cv2,numpy as np
 root=Path(sys.argv[1]); request=json.loads((root/'request.json').read_text())
 (root/'evidence').mkdir(exist_ok=True)
+output_canvas=request.get('canvas',{'width':2228,'height':1672})
+for key in ('width','height'):
+ value=output_canvas.get(key)
+ if type(value) is not int or value<64 or value>4096 or value%2:raise ValueError(f'canvas.{key} must be an even integer from 64 to 4096.')
+viewport_height=output_canvas['height']*1114/output_canvas['width']
 images=[]; records=[]
 for i,item in enumerate(request['images']):
  raw=(root/f'image-{i}').read_bytes()
@@ -35,7 +40,9 @@ samples=[];balanced_samples=[];balanced_ids=[];crops={};tiles=[]
 # Match the source-coordinate viewport spans in sequence.ts and contracts.ts.
 # Include every intersecting section in the balanced strategy without changing palette-v1.
 opening=request['shots']['opening']
-opening_spans=[(opening['leftY'],836/(394/logical['width'])),(opening['rightY'],(836-91)/(516/logical['width']))]
+opening_spans=[(opening['leftY'],viewport_height/(394/logical['width'])),(opening['rightY'],(viewport_height-91*viewport_height/836)/(516/logical['width']))]
+for y,span in opening_spans:
+ if y<0 or y+span>logical['height']+.01:raise ValueError('Opening passage cannot fill the requested canvas height; choose an earlier crop or supply a taller page.')
 balanced_selected=selected|{s['id'] for s in sections if any(s['y']<y+span and s['y']+s['height']>y for y,span in opening_spans)}
 overlay=page.copy()
 for s in sections:
@@ -69,5 +76,5 @@ for i,pair in enumerate(request['shots']['pairs']):
  bg=tuple(int(color[j:j+2],16) for j in (5,3,1))+(255,);canvas=np.full((max(p.shape[0] for p in parts)+48,1072,4),bg,np.uint8)
  for x,p in zip([24,548],parts):canvas[24:24+p.shape[0],x:x+500]=p
  cv2.imwrite(str(root/f'evidence/pair-{i+1}.png'),canvas)
-result={'manifest':{**logical,'sections':sections},'shots':request['shots'],'image':'page.png','background':{'color':color.upper(),'input':b,'palette':palette_decision,**({'balanced':balanced_decision} if balanced_decision else {})},'mapping':{'rasterWidth':width,'rasterHeight':height,'scaleX':sx,'scaleY':sy},'images':records,'coverage':request.get('coverage',[]),'omissions':request.get('omissions',[]),'review':request['review'],'pageHash':hashlib.sha256((root/'page.png').read_bytes()).hexdigest()}
+result={'canvas':output_canvas,'manifest':{**logical,'sections':sections},'shots':request['shots'],'image':'page.png','background':{'color':color.upper(),'input':b,'palette':palette_decision,**({'balanced':balanced_decision} if balanced_decision else {})},'mapping':{'rasterWidth':width,'rasterHeight':height,'scaleX':sx,'scaleY':sy},'images':records,'coverage':request.get('coverage',[]),'omissions':request.get('omissions',[]),'review':request['review'],'pageHash':hashlib.sha256((root/'page.png').read_bytes()).hexdigest()}
 (root/'prepared.json').write_text(json.dumps(result,indent=2)+'\n')

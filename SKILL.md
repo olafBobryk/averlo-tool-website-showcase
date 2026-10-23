@@ -15,6 +15,8 @@ Check Node.js 22+, Python 3.12+, and FFmpeg before installing dependencies. Expl
 
 Use the user's page or screenshots in a separate working directory. Start with `sample/request.json`; preserve the supplied pixels and record real dimensions and SHA-256 hashes. Map coherent vertical page sections into the existing shots. Review framing and section selection; paired sections need different pixels, and opening strips need distinct upper and lower passages. If validation fails, fix the mapping or choose shorter sections rather than bypassing the checks. Preserve the renderer's motion unless the user explicitly requests changes.
 
+When a different output size is requested, set `canvas.width` and `canvas.height` in request.json before preparation (even integers 64–4096). The default is 2228×1672. Height applies to every phase, including complete entrances/exits. Preserve source proportions. Recheck opening source coverage and section fit for the new viewport; do not pad missing source pixels.
+
 Do not fabricate missing page content or retrieve private assets without permission. Rendering does not require an Averlo server. Do not upload, deploy, or add paid services unless requested. The tool permits use and customization, including commercial outputs, but not redistribution or resale of its source or modified versions; see [LICENSE](LICENSE). Third-party terms still apply.
 
 ## Install and update
