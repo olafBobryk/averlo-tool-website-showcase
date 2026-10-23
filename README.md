@@ -42,3 +42,19 @@ The Git remote must remain credential-free. Obtain fresh temporary access throug
 ## Package status
 
 This private repository is delivered through the Averlo tool catalog. The preserved renderer and newly authored sample are identified in `PROVENANCE.md`. The [tool-use terms](LICENSE) permit personal and commercial use, customization, and commercial use of your outputs. Redistribution or resale of the tool itself, its source or modified versions is not permitted. The repository remains private and initial retrieval is gated by Averlo access. Third-party dependencies and any user-supplied images retain their own licenses and rights; these tool-use terms do not replace them.
+
+## Use as an agent skill
+
+The repository includes the `averlo-website-showcase` skill and its renderer. With private repository access configured:
+
+```sh
+npx skills add olafBobryk/averlo-tool-website-showcase --skill averlo-website-showcase
+```
+
+If your assistant already cloned it through the catalog's temporary access prompt, install from that checkout instead:
+
+```sh
+npx skills add /absolute/path/to/your-checkout --skill averlo-website-showcase
+```
+
+Ask your assistant to use Website Showcase to create a first sample, then customize it with your website. Skills installed from the remote support `npx skills update averlo-website-showcase` while valid repository access is available. For local-path installs, update the checkout safely and repeat the local install. The repository remains private; skill compatibility does not make the renderer a public skills.sh listing.
