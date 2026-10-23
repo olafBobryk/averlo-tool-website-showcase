@@ -35,23 +35,23 @@ SHOWCASE_PYTHON="$PWD/.venv/bin/python" node scripts/render-input.mjs /absolute/
 
 If fit validation fails, choose shorter sections or different slots and rerun it. Do not disable validation to force a render. Background may use an explicit six-digit hex override, automatic palette selection, or the included balanced strategy.
 
-## Updates and credentials
+## Updates
 
-The Git remote must remain credential-free. Obtain fresh temporary access through your saved Averlo collection, then fetch using a temporary credential helper. Preserve local customizations before updating and inspect changes before applying them. Do not commit access tokens, private screenshots, generated frames or videos.
+The Git remote is public and credential-free. Fetch updates directly; follow the sync-before-every-use instructions below. Preserve local customizations and inspect changes before integrating. Do not commit private screenshots, generated frames or videos.
 
 ## Package status
 
-This public repository is delivered through the Averlo tool catalog. The preserved renderer and newly authored sample are identified in `PROVENANCE.md`. The [tool-use terms](LICENSE) permit personal and commercial use, customization, and commercial use of your outputs. Redistribution or resale of the tool itself, its source or modified versions is not permitted. The repository remains private and initial retrieval is gated by Averlo access. Third-party dependencies and any user-supplied images retain their own licenses and rights; these tool-use terms do not replace them.
+This public repository is delivered through the Averlo tool catalog. The preserved renderer and newly authored sample are identified in `PROVENANCE.md`. The [tool-use terms](LICENSE) permit personal and commercial use, customization, and commercial use of your outputs. Redistribution or resale of the tool itself, its source or modified versions is not permitted. No login or unlock code is required. Third-party dependencies and any user-supplied images retain their own licenses and rights; these tool-use terms do not replace them.
 
 ## Use as an agent skill
 
-The repository includes the `averlo-website-showcase` skill and its renderer. With public repository access configured:
+The repository includes the `averlo-website-showcase` skill and its renderer. Install directly:
 
 ```sh
 npx skills add olafBobryk/averlo-tool-website-showcase --skill averlo-website-showcase
 ```
 
-If your assistant already cloned it through the catalog's temporary access prompt, install from that checkout instead:
+If your assistant already cloned it, install from that checkout instead:
 
 ```sh
 npx skills add /absolute/path/to/your-checkout --skill averlo-website-showcase
