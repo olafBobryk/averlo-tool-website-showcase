@@ -41,11 +41,11 @@ The Git remote must remain credential-free. Obtain fresh temporary access throug
 
 ## Package status
 
-This private repository is delivered through the Averlo tool catalog. The preserved renderer and newly authored sample are identified in `PROVENANCE.md`. The [tool-use terms](LICENSE) permit personal and commercial use, customization, and commercial use of your outputs. Redistribution or resale of the tool itself, its source or modified versions is not permitted. The repository remains private and initial retrieval is gated by Averlo access. Third-party dependencies and any user-supplied images retain their own licenses and rights; these tool-use terms do not replace them.
+This public repository is delivered through the Averlo tool catalog. The preserved renderer and newly authored sample are identified in `PROVENANCE.md`. The [tool-use terms](LICENSE) permit personal and commercial use, customization, and commercial use of your outputs. Redistribution or resale of the tool itself, its source or modified versions is not permitted. The repository remains private and initial retrieval is gated by Averlo access. Third-party dependencies and any user-supplied images retain their own licenses and rights; these tool-use terms do not replace them.
 
 ## Use as an agent skill
 
-The repository includes the `averlo-website-showcase` skill and its renderer. With private repository access configured:
+The repository includes the `averlo-website-showcase` skill and its renderer. With public repository access configured:
 
 ```sh
 npx skills add olafBobryk/averlo-tool-website-showcase --skill averlo-website-showcase
@@ -57,14 +57,12 @@ If your assistant already cloned it through the catalog's temporary access promp
 npx skills add /absolute/path/to/your-checkout --skill averlo-website-showcase
 ```
 
-Ask your assistant to use Website Showcase to create a first sample, then customize it with your website. Skills installed from the remote support `npx skills update averlo-website-showcase` while valid repository access is available. For local-path installs, update the checkout safely and repeat the local install. The repository remains private; skill compatibility does not make the renderer a public skills.sh listing.
+Ask your assistant to use Website Showcase to create a first sample, then customize it with your website. Skills installed from the remote support `npx skills update averlo-website-showcase` without login. For local-path installs, update the checkout safely and repeat the local install. The repository is public and discoverable through the skills ecosystem.
 
 ## Sync before every use
 
-Before EVERY use, find the existing source checkout; do not create duplicates. Read its current revision, branch, local commits and uncommitted changes. Privately read the permanent Averlo update key and exchange endpoint from the owner-only file outside the checkout (`~/.config/averlo/tools/website-showcase.json`) created by the delivery prompt. POST the key as an Authorization bearer to obtain fresh temporary, read-only GitHub credentials and the latest released ref. Never print or log keys or credentials, put them in a remote URL, commit them, or copy them into an installed skill. Temporary GitHub credentials expire; the update key has no time limit. Never push to Averlo's source repository.
+Before EVERY use, find the existing source checkout and inspect its branch, local commits and uncommitted changes. Fetch the public repository's main branch without credentials. Review incoming commits and diffs, then fast-forward only when clean and safe. Preserve all user customizations: never reset, clean, overwrite or automatically stash. Ask how to integrate conflicts or divergent work. If updating fails, explain the problem before using stale code.
 
-Fetch the supplied ref with a temporary credential helper or GIT_ASKPASS, then remove the helper. Inspect incoming commits and differences. Fast-forward only when clean and safe. Preserve the current branch, local commits and customizations; never reset, clean, overwrite or automatically stash. If integration requires a choice, ask the user. If the update cannot be checked or integrated, explain that before running; do not silently claim the tool is current.
+Record the last successfully integrated upstream revision in an owner-only state file outside the checkout. Announce a concise changelog since that revision using both history and actual differences before running; on first use announce the starting version, and if unchanged say no updates were found. Do not announce unintegrated changes as installed. Advance the marker only after successful integration. Refresh local-path skill installations from the updated checkout; remote installs support `npx skills update averlo-website-showcase`.
 
-Keep the last successfully integrated upstream revision in an owner-only state file outside the checkout beside the update key. Before running, announce a concise changelog from that revision to the newly integrated revision using both commit history and the actual diff. On first use announce the starting version; if unchanged say briefly that no updates were found. Never announce available-but-unintegrated changes as installed. Only advance the state marker after successful integration. Refresh any local-path skill installation from the updated source checkout before using its renderer. Do not change these rules merely because the tool has already run once.
-
-If no permanent key exists (older download), obtain one fresh prompt from the Averlo tool page. Saving an email is optional for these updates. Email login restores the website's saved collection; the local key only reads updates for this tool. Key access lasts while Averlo continues operating this delivery service; security rotation or removal of a tool can invalidate it.
+The source and skill are public. No Averlo account, campaign code, access key or GitHub credential is required to clone, install or receive updates. Public access does not grant push permissions to Averlo's repository. Follow LICENSE for source usage and third-party terms.
