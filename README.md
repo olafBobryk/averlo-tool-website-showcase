@@ -41,4 +41,4 @@ The Git remote must remain credential-free. Obtain fresh temporary access throug
 
 ## Package status
 
-This private repository stores the curated Showcase distribution. Averlo catalog delivery is enabled separately; repository creation alone does not make the download available. The preserved renderer and newly authored sample are identified in `PROVENANCE.md`. Publication terms for Averlo's source must be selected before distribution; this package does not silently grant an open-source license.
+This private repository is delivered through the Averlo tool catalog. The preserved renderer and newly authored sample are identified in `PROVENANCE.md`. Averlo-owned code and the original sample are available under the [MIT License](LICENSE), allowing use, customization and redistribution with the required notice. The repository remains private and initial retrieval is gated by Averlo access. Third-party dependencies and any user-supplied images retain their own licenses and rights; the MIT grant does not replace them.
